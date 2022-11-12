@@ -13,7 +13,7 @@ const cherry = {
   name: "Cherries",
   price: 4,
   quantity: 0,
-  productID: 10203,
+  productId: 10203,
   image: "images/cherry.jpg",
 };
 
@@ -21,7 +21,7 @@ const strawberry = {
   name: "Strawberries",
   price: 5,
   quantity: 0,
-  productID: 40506,
+  productId: 40506,
   image: "images/strawberry.jpg",
 };
 
@@ -29,7 +29,7 @@ const orange = {
   name: "Oranges",
   price: 10,
   quantity: 0,
-  productID: 70809,
+  productId: 70809,
   image: "images/orange.jpg"
 };
 
@@ -49,56 +49,56 @@ const cart = [];
   - addProductToCart should then increase the product's quantity
   - if the product is not already in the cart, add it to the cart
 */
-function productIdFindsProduct(productID, productList) {
-  return productList.find(product => products.productID === productID);
+function productIdFindsProduct(productId, productList) {
+  return productList.find((product) => product.productId === productId);
 }
 
-function addProductToCart(productID) {
-  let productFound = productIdFindsProduct(productID, products);
+function addProductToCart(productId) {
+  let productFound = productIdFindsProduct(productId, products);
   productFound.quantity += 1;
   if (!cart.includes(productFound)) {
     cart.push(productFound);
   }
-};
+}
 
 /* Create a function named increaseQuantity that takes in the productId as an argument
   - increaseQuantity should get the correct product based on the productId
   - increaseQuantity should then increase the product's quantity
 */
-function increaseQuantity(productID) {
-  let productFound = productIdFindsProduct(productID, cart);
+function increaseQuantity(productId) {
+  let productFound = productIdFindsProduct(productId, cart);
   productFound.quantity += 1;
-};
+}
 
 /* Create a function named decreaseQuantity that takes in the productId as an argument
   - decreaseQuantity should get the correct product based on the productId
   - decreaseQuantity should decrease the quantity of the product
   - if the function decreases the quantity to 0, the product is removed from the cart
 */
-function decreaseQuantity(productID) {
-  let productFound = productIdFindsProduct(productID, cart);
+function decreaseQuantity(productId) {
+  let productFound = productIdFindsProduct(productId, cart);
   if (productFound.quantity >= 1) {
     productFound.quantity -= 1;
   } if (productFound.quantity === 0) {
-    remove = cart.indexOf(productFound)
+    let remove = cart.indexOf(productFound)
     cart.splice(remove, 1);
-    };
-};
+    }
+}
 
 /* Create a function named removeProductFromCart that takes in the productId as an argument
   - removeProductFromCart should get the correct product based on the productId
   - removeProductFromCart should update the product quantity to 0
   - removeProductFromCart should remove the product from the cart
 */
-function removeProductFromCart(productID) {
-  let productFound = productIdFindsProduct(productID, cart);
+function removeProductFromCart(productId) {
+  let productFound = productIdFindsProduct(productId, cart);
   productFound.quantity = 0;
   if (cart.includes(productFound)) {
-    remove = cart.indexOf(productFound);
+    let remove = cart.indexOf(productFound);
     cart.splice(remove, 1);
     productFound.quantity = 0;
   }
-};
+}
 
 
 /* Create a function named cartTotal that has no parameters
@@ -111,12 +111,12 @@ function cartTotal() {
     cartSum = cartSum + (element.price * element.quantity);
   });
   return cartSum
-};
+}
 
 /* Create a function called emptyCart that empties the products from the cart */
 function emptyCart() {
   cart.splice(0, cart.length);
-};
+}
 
 /* Create a function named pay that takes in an amount as an argument
   - pay will return a negative number if there is a remaining balance
@@ -126,8 +126,12 @@ let totalPaid = 0
 
 function pay(amount) {
   totalPaid += amount;
-  return (totalPaid -= cartTotal());
-};
+  let cashReturned = (totalPaid - cartTotal());
+  if (cashReturned >= 0) {
+    totalPaid = 0
+  };
+  return cashReturned
+}
 
 /* Place stand out suggestions here (stand out suggestions can be found at the bottom of the project rubric.)*/
 
