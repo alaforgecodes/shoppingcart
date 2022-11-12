@@ -55,7 +55,7 @@ function productIdFindsProduct(productID, productList) {
 
 function addProductToCart(productID) {
   let productFound = productIdFindsProduct(productID, products);
-  productFound.quantity++;
+  productFound.quantity += 1;
   if (!cart.includes(productFound)) {
     cart.push(productFound);
   }
